@@ -1,0 +1,24 @@
+{
+  "name": "node-study",
+  "version": "1.0.0",
+  "description": "Learning node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sondragon/node-study.git"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "Windy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sondragon/node-study/issues"
+  },
+  "homepage": "https://github.com/sondragon/node-study#readme"
+}
