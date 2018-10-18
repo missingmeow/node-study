@@ -1,6 +1,6 @@
 # node-study
 
-[![Build Status](https://api.travis-ci.org/sondragon/node-study.png)](https://travis-ci.org/sondragon/node-study)
+[![Build Status](https://travis-ci.org/sondragon/node-study.svg?branch=master)](https://travis-ci.org/sondragon/node-study)
 
 Just for learning node.js.
 
