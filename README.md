@@ -1,4 +1,7 @@
 # node-study
+
+[![Build Status](https://api.travis-ci.org/sondragon/node-study.png)](https://travis-ci.org/sondragon/node-study)
+
 Just for learning node.js.
 
 主要是学习 Node.js 部分库的使用，以及如何构建自动化测试相关内容。
