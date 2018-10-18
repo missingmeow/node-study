@@ -13,12 +13,13 @@ npm install
 npm start
 ```
 
-部分相关库可能使用全局安装更方便使用，下面如果遇到会补充：
+本工程使用了`eslint`代码规范模块，如果需要使用需要安装`eslint`模块：
 ```
+npm install eslint -g
 ```
 
 ### 工程结构
-
+```
 app.js：        启动文件，或者说入口文件
 package.json：  存储着工程的信息及模块依赖，当在 dependencies 中添加依赖的模块时，运行npm install，npm 会检查当前目录下的 package.json，并自动安装所有指定的模块
 node_modules：  存放 package.json 中安装的模块，当你在 package.json 添加依赖的模块并安装后，存放在这个文件夹下
@@ -26,10 +27,21 @@ public：        存放 image、css、js 等文件
 routes：        存放路由文件
 views：         存放视图文件或者说模版文件
 bin：           存放可执行文件
-
+```
 
 ### 学习笔记
 
 1. [配置文件模块工具 config-lite](https://github.com/sondragon/node-study/blob/master/notes/%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7config-lite.md)
+   
 2. [日志中间件 morgan](https://github.com/expressjs/morgan)
-3. [日志文件每日新建一份存储 rotating-file-stream](https://github.com/iccicci/rotating-file-stream)
+
+    1. [日志文件每日新建一份存储 rotating-file-stream](https://github.com/iccicci/rotating-file-stream)
+
+    关于`rotating-file-stream`有个需要注意的地方是，如果设置每日新建一个文件存储，它不能指定比如说零点创建，它日志存储方式是新的日志会放在默认的文件里，比如[这里](https://github.com/sondragon/node-study/blob/master/app.js#L28)的`file.log`中，到时间新建日志文件的时候它会把符合条件的日志全部拷贝进去，新日志仍然会放在`file.log`中。
+
+    另外有个配置需要注意下：[initialRotation](https://github.com/iccicci/rotating-file-stream#initialrotation)
+
+3. [自动化测试模块mocha](https://mochajs.org/)
+
+    1. [should](https://github.com/shouldjs/should.js)
+    2. [supertest](https://github.com/visionmedia/supertest)
