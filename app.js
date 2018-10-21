@@ -25,7 +25,7 @@ function pad(num) {
 
 // create a rotating write stream
 const accessLogStream = rfs((time, index) => {
-        if(! time)
+        if (!time)
             return "file.log";
 
         var month  = time.getFullYear() + "" + pad(time.getMonth() + 1);

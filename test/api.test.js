@@ -29,6 +29,14 @@ describe('GET /error', function() {
 
 describe('/api/testapi', () => {
     describe('POST /', () => {
+        it('/?username=zhangsan should respond 404 and no data', (done) => {
+            request(app)
+            .get('/api/testapi/?username=zhangsan')
+            .expect((res) => {
+                res.body.message.should.equal('can not find user: zhangsan');
+            })
+            .expect(404, done)
+        })
         it('/ should resond 400', (done) => {
             request(app)
             .post('/api/testapi')
@@ -199,7 +207,7 @@ describe('/api/testapi', () => {
         })
         it('/ should resond 404 can not find user', (done) => {
             request(app)
-            .put('/api/testapi')
+            .delete('/api/testapi')
             .send({ username: 'supertest3'})
             .expect((res) => {
                 res.body.message.should.equal('can not find user: supertest3');
@@ -208,7 +216,7 @@ describe('/api/testapi', () => {
         })
         it('/ should resond 400 need username', (done) => {
             request(app)
-            .put('/api/testapi')
+            .delete('/api/testapi')
             .send({ age: 25 })
             .expect((res) => {
                 res.body.message.should.equal('need username');
