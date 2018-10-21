@@ -44,7 +44,9 @@ const accessLogStream = rfs((time, index) => {
 logger.format('combined2', ':remote-addr - :remote-user [:date[iso]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"');
 
 app.use(logger('combined2', { stream: accessLogStream })); // 加载日志中间件-输出到文件
-app.use(logger('dev')); // 加载日志中间件
+if (process.env.NODE_ENV === 'development')
+    app.use(logger('dev')); // 加载日志中间件
+
 app.use(express.json()); // 加载解析 json 的中间件
 app.use(express.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件
 // app.use(cookieParser()); // 加载解析 cookie 的中间件 - 需另外安装
@@ -55,6 +57,10 @@ router(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+    if (req.originalUrl.startsWith('/api')) {
+
+    }
+
     next(createError(404));
 });
 
