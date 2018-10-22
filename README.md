@@ -35,7 +35,9 @@ bin：           存放可执行文件
 ### 学习笔记
 
 1. [配置文件模块工具 config-lite](https://github.com/sondragon/node-study/blob/master/notes/%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7config-lite.md)
-   
+
+    1. [环境变量设置可跨平台应用解决windows与Linux不兼容问题 cross-env](https://github.com/kentcdodds/cross-env)
+
 2. [日志中间件 morgan](https://github.com/expressjs/morgan)
 
     1. [日志文件每日新建一份存储 rotating-file-stream](https://github.com/iccicci/rotating-file-stream)
