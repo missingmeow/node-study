@@ -34,6 +34,8 @@ bin：           存放可执行文件
 
 ### 学习笔记
 
+0. [express 教程多看API文档](https://expressjs.com/en/4x/api.html)
+
 1. [配置文件模块工具 config-lite](https://github.com/sondragon/node-study/blob/master/notes/%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7config-lite.md)
 
     1. [环境变量设置可跨平台应用解决windows与Linux不兼容问题 cross-env](https://github.com/kentcdodds/cross-env)
@@ -42,7 +44,7 @@ bin：           存放可执行文件
 
     1. [日志文件每日新建一份存储 rotating-file-stream](https://github.com/iccicci/rotating-file-stream)
 
-    关于`rotating-file-stream`有个需要注意的地方是，如果设置每日新建一个文件存储，它不能指定比如说零点创建，它日志存储方式是新的日志会放在默认的文件里，比如[这里](https://github.com/sondragon/node-study/blob/master/app.js#L28)的`file.log`中，到时间新建日志文件的时候它会把符合条件的日志全部拷贝进去，新日志仍然会放在`file.log`中。
+    关于`rotating-file-stream`有个需要注意的地方是，如果设置每日新建一个文件存储，它日志存储方式是先将新的日志会在默认的文件里，比如[这里](https://github.com/sondragon/node-study/blob/master/app.js#L28)的`file.log`中，到时间新建日志文件的时候它会把符合条件的日志全部拷贝进去，新日志仍然会放在`file.log`中。
 
     另外有个配置需要注意下：[initialRotation](https://github.com/iccicci/rotating-file-stream#initialrotation)
 
@@ -50,3 +52,7 @@ bin：           存放可执行文件
 
     1. [should](https://github.com/shouldjs/should.js)
     2. [supertest](https://github.com/visionmedia/supertest)
+
+4. [cookie-parser 模块](http://wiki.jikexueyuan.com/project/node-lessons/cookie-session.html)
+    
+    需要注意的一点就是，使用时可以指定一个类似密钥的字符串，如果不使用，则获取cookie是用`req.cookies`，如果使用了密钥，则获取cookie是要用`req.signedCookies`

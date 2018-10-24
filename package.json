@@ -24,6 +24,8 @@
   "homepage": "https://github.com/sondragon/node-study#readme",
   "dependencies": {
     "config-lite": "^2.1.0",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "istanbul": "^0.4.5",
     "morgan": "^1.9.1",

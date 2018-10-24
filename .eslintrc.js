@@ -20,9 +20,15 @@ module.exports = {
 
         "no-multiple-empty-lines": [0, {"max": 10}], // 空行最多不能超过10行
 
-        "no-mixed-spaces-and-tabs": [0],    // 关闭禁止混用tab和空格
+        "no-mixed-spaces-and-tabs": [0],        // 关闭禁止混用tab和空格
 
         "comma-dangle": ["off", "never"],       // 对象字面量项尾不能有逗号
+
+        "prefer-template": ['off'],             // 字符串使用模板
+
+        "padded-blocks": 0,                     // 块语句内行首行尾是否要空行
+
+        "no-plusplus": 0,                       // 不能用 ++ 运算符
 
         /**
         "no-alert": 0,//禁止使用alert confirm prompt

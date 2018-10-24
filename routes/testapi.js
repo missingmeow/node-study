@@ -2,19 +2,21 @@
 const express = require('express');
 const fs = require('fs');
 
+const httpStatus = require('../utils/httpStatus');
+
 const router = express.Router();
 
 function ReadData() {
     try {
-        let data = fs.readFileSync('data.json');
+        const data = fs.readFileSync('data.json');
         return JSON.parse(data);
     } catch (err) {
         return [];
     }
 }
 
-router.get('/testapi', (req, res) => {
-    let data = ReadData();
+router.get('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
+    const data = ReadData();
     // req.query 不为空时，说明api可能是: /testapi/?username=fesega
     if (JSON.stringify(req.query) !== '{}') {
         if (req.query.username) {
@@ -28,8 +30,7 @@ router.get('/testapi', (req, res) => {
             if (i === data.length) {
                 res.status(404).send({ message: 'can not find user: ' + req.query.username });
             }
-        }
-        else {
+        } else {
             res.status(400).send({ message: 'some wrong with query' });
         }
     } else {
@@ -37,8 +38,8 @@ router.get('/testapi', (req, res) => {
     }
 })
 
-router.get('/testapi/:id', (req, res) => {
-    let data = ReadData();
+router.get('/testapi/:id', httpStatus.ensureAuthenticated, (req, res) => {
+    const data = ReadData();
     let i = 0;
     for (; i < data.length; ++i) {
         if (data[i].username === req.params.id) {
@@ -51,16 +52,16 @@ router.get('/testapi/:id', (req, res) => {
     }
 })
 
-router.post('/testapi', (req, res) => {
+router.post('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
     if (!req.body.username) {
-        res.status(400).send({ message: 'need username'});
+        res.status(400).send({ message: 'need username' });
         return;
     }
 
     let data = ReadData();
     for (let i = 0; i < data.length; ++i) {
         if (data[i].username === req.body.username) {
-            res.status(409).send({ message: 'username has been created'});
+            res.status(409).send({ message: 'username has been created' });
             return;
         }
     }
@@ -74,7 +75,7 @@ router.post('/testapi', (req, res) => {
     res.status(201).send();
 })
 
-router.put('/testapi', (req, res) => {
+router.put('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
     if (!req.body.username) {
         res.status(400).send({ message: 'need username'});
         return;
@@ -89,21 +90,21 @@ router.put('/testapi', (req, res) => {
     }
 
     if (i === data.length) {
-        res.status(404).send({ message: `can not find user: ${req.body.username}`});
+        res.status(404).send({ message: `can not find user: ${req.body.username}` });
         return;
     }
 
     if (req.body.age) {
         data[i].age = req.body.age;
     }
-    
+
     fs.writeFileSync('data.json', JSON.stringify(data));
     res.status(200).send();
 })
 
-router.delete('/testapi', (req, res) => {
+router.delete('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
     if (!req.body.username) {
-        res.status(400).send({ message: 'need username'});
+        res.status(400).send({ message: 'need username' });
         return;
     }
 
@@ -116,7 +117,7 @@ router.delete('/testapi', (req, res) => {
     }
 
     if (i === data.length) {
-        res.status(404).send({ message: `can not find user: ${req.body.username}`});
+        res.status(404).send({ message: `can not find user: ${req.body.username}` });
         return;
     }
 
