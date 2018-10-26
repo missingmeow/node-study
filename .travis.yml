@@ -7,6 +7,28 @@ branches:
   only:
     - master
 
-script:
+cache: npm
+
+before_install:
+  -
+
+install:
   - npm install
+
+before_script:
+  -
+
+script:
   - npm test
+
+after_success:
+  - npm run cover
+
+after_failure:
+  -
+
+deploy:
+  -
+
+after_script:
+  -

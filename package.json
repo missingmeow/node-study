@@ -4,7 +4,8 @@
   "description": "Learning node.js",
   "main": "app.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha",
+    "test": "mocha",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha --report text-lcov -- -R spec | node ./node_modules/coveralls/bin/coveralls.js",
     "dev": "cross-env NODE_ENV=development nodemon ./bin/www",
     "start": "cross-env NODE_ENV=production node ./bin/www"
   },
@@ -33,6 +34,7 @@
     "session-file-store": "^1.2.0"
   },
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "lodash": ">=4.17.5",
     "mocha": "^5.2.0",
