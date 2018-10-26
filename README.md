@@ -1,6 +1,7 @@
 # node-study
 
 [![Build Status](https://travis-ci.org/sondragon/node-study.svg?branch=master)](https://travis-ci.org/sondragon/node-study)
+[![Coverage Status](https://coveralls.io/repos/github/sondragon/node-study/badge.svg?branch=master)](https://coveralls.io/github/sondragon/node-study?branch=master)
 [![Node.js Version](https://img.shields.io/badge/node-%E2%89%A58.12.0-brightgreen.svg)](https://nodejs.org/en/download)
 
 Just for learning node.js.
