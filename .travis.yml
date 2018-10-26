@@ -27,8 +27,5 @@ after_success:
 after_failure:
   -
 
-deploy:
-  -
-
 after_script:
   -
