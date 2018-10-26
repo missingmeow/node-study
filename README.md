@@ -54,6 +54,12 @@ bin：           存放可执行文件
     1. [should](https://github.com/shouldjs/should.js)
     2. [supertest](https://github.com/visionmedia/supertest)
 
-4. [cookie-parser 模块](http://wiki.jikexueyuan.com/project/node-lessons/cookie-session.html)
-    
+4. [cookie-parser 模块](http://wiki.jikexueyuan.com/project/node-lessons/cookie-session.html)(已移除该模块，原因看[这里](https://github.com/expressjs/session#api))
+
     需要注意的一点就是，使用时可以指定一个类似密钥的字符串，如果不使用，则获取cookie是用`req.cookies`，如果使用了密钥，则获取cookie是要用`req.signedCookies`
+
+5. [express-session模块](https://github.com/expressjs/session)
+
+    [`cookie`与`session`的介绍](https://github.com/sondragon/node-study/blob/master/notes/cookie%E4%B8%8Esession.md)，其中区别可以看[这里](https://github.com/sondragon/node-study/blob/master/notes/cookie%E4%B8%8Esession.md#cookie%E5%92%8Csession%E5%8C%BA%E5%88%AB)，讲得很是通俗易懂
+
+    [`session-file-store`](https://github.com/valery-barysok/session-file-store)一个文件存储session信息，可用来测试。

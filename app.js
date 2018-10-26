@@ -5,7 +5,9 @@ const config = require('config-lite')(__dirname);
 const logger = require('morgan');
 const fs = require('fs');
 const rfs = require('rotating-file-stream');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 const router = require('./routes/index');
 const httpStatus = require('./utils/httpStatus');
 
@@ -56,7 +58,16 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json()); // 加载解析 json 的中间件
 app.use(express.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件
-app.use(cookieParser('secret')); // 加载解析 cookie 的中间件  传入‘secret’作为密钥，可不传(req.cookies/req.signedCookies)
+// 加载解析 cookie 的中间件 传入‘secret’作为密钥，可不传(req.cookies/req.signedCookies)
+// app.use(cookieParser('secret'));
+app.use(session({
+    secret: 'ThisIsSecret',
+    resave: true,
+    saveUninitialized: false,
+    store: new FileStore({
+        reapInterval: -1, // 以秒为单位清除过期session，默认为1h，-1表示不需要。设为 -1 否则mocha测试时不会退出
+    }),
+}))
 app.use(express.static(path.join(__dirname, 'public'))); // 设置public文件夹为存放静态文件的目录
 
 // add router

@@ -1,12 +1,12 @@
 
 const testapi = require('./testapi');
 
-const ensureAuthenticated = require('../utils/httpStatus').ensureAuthenticated;
+const httpStatus = require('../utils/httpStatus');
 
 module.exports = (app) => {
 
-    app.get('/', ensureAuthenticated, (req, res) => {
-        res.send('Hello World!');
+    app.get('/', httpStatus.ensureAuthenticated, (req, res) => {
+        res.send(`Hello World! the ${req.session.views[req.originalUrl]} times`);
     })
 
     app.get('/login', (req, res) => {
@@ -15,7 +15,8 @@ module.exports = (app) => {
 
     app.post('/login', (req, res) => {
         if (req.body.username === 'admin' && req.body.password === 'admin') {
-            res.cookie('name', req.body.username, { signed: true });
+            // res.cookie('name', req.body.username, { signed: true });
+            req.session.username = req.body.username;
             res.send('login successful');
         } else {
             res.status(409).send({ message: 'wrong password' });

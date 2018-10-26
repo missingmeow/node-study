@@ -14,7 +14,16 @@ function resourceNotFound(req, res, next) {
 }
 
 function ensureAuthenticated(req, res, next) {
-    if (req.signedCookies.name) {
+//    if (req.signedCookies.name) {
+//        return next();
+//    }
+    if (!req.session.views) {
+        req.session.views = {}
+    }
+    // count the views
+    req.session.views[req.originalUrl] = (req.session.views[req.originalUrl] || 0) + 1
+
+    if (req.session.username) {
         return next();
     }
     if (req.baseUrl === '/api') {
