@@ -64,3 +64,5 @@ bin：           存放可执行文件
     [`cookie`与`session`的介绍](https://github.com/sondragon/node-study/blob/master/notes/cookie%E4%B8%8Esession.md)，其中区别可以看[这里](https://github.com/sondragon/node-study/blob/master/notes/cookie%E4%B8%8Esession.md#cookie%E5%92%8Csession%E5%8C%BA%E5%88%AB)，讲得很是通俗易懂
 
     [`session-file-store`](https://github.com/valery-barysok/session-file-store)一个文件存储session信息，可用来测试。
+
+6. [express-validator模块](https://express-validator.github.io/docs/)

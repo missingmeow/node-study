@@ -1,6 +1,7 @@
 
 const express = require('express');
 const fs = require('fs');
+const { check, validationResult } = require('express-validator/check');
 
 const httpStatus = require('../utils/httpStatus');
 
@@ -9,6 +10,9 @@ const router = express.Router();
 function ReadData() {
     try {
         const data = fs.readFileSync('data.json');
+        if (data === '') {
+            return [];
+        }
         return JSON.parse(data);
     } catch (err) {
         return [];
@@ -52,33 +56,31 @@ router.get('/testapi/:id', httpStatus.ensureAuthenticated, (req, res) => {
     }
 })
 
-router.post('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
-    if (!req.body.username) {
-        res.status(400).send({ message: 'need username' });
-        return;
+router.post('/testapi', httpStatus.ensureAuthenticated, [
+    check('username').isString().withMessage('need username')
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return httpStatus.validationError(res, errors);
     }
 
     let data = ReadData();
     for (let i = 0; i < data.length; ++i) {
         if (data[i].username === req.body.username) {
-            res.status(409).send({ message: 'username has been created' });
             return;
+            return res.status(409).send({ message: 'username has been created' });
         }
     }
 
-    if (req.body.age) {
-        data.push({ username: req.body.username, age: req.body.age });
-    } else {
-        data.push({ username: req.body.username });
-    }
+    data.push(req.body);
+
     fs.writeFileSync('data.json', JSON.stringify(data));
-    res.status(201).send();
+    return res.status(201).send();
 })
 
 router.put('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
     if (!req.body.username) {
-        res.status(400).send({ message: 'need username'});
-        return;
+        return res.status(400).send({ message: 'need username' });
     }
 
     let data = ReadData();
@@ -90,8 +92,7 @@ router.put('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
     }
 
     if (i === data.length) {
-        res.status(404).send({ message: `can not find user: ${req.body.username}` });
-        return;
+        return res.status(404).send({ message: `can not find user: ${req.body.username}` });
     }
 
     if (req.body.age) {
@@ -99,13 +100,12 @@ router.put('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
     }
 
     fs.writeFileSync('data.json', JSON.stringify(data));
-    res.status(200).send();
+    return res.status(200).send();
 })
 
 router.delete('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
     if (!req.body.username) {
-        res.status(400).send({ message: 'need username' });
-        return;
+        return res.status(400).send({ message: 'need username' });
     }
 
     let data = ReadData();
@@ -117,14 +117,13 @@ router.delete('/testapi', httpStatus.ensureAuthenticated, (req, res) => {
     }
 
     if (i === data.length) {
-        res.status(404).send({ message: `can not find user: ${req.body.username}` });
-        return;
+        return res.status(404).send({ message: `can not find user: ${req.body.username}` });
     }
 
     data.splice(i, 1);
 
     fs.writeFileSync('data.json', JSON.stringify(data));
-    res.status(200).send();
+    return res.status(200).send();
 })
 
 module.exports = router

@@ -56,14 +56,14 @@ describe('/api/testapi', () => {
             .post('/api/testapi')
             .send({ age: 18 })
             .expect((res) => {
-                res.body.message.should.equal('need username');
+                res.body.error[0].msg.should.equal('need username');
             })
-            .expect(400, done)
+            .expect(422, done)
         })
         it('/ should resond 201 and create supertest', (done) => {
             agent
             .post('/api/testapi')
-            .send({ username: 'supertest'})
+            .send({ username: 'supertest' })
             .expect(201, done)
         })
         it('/supertest should respond 200 and not age', (done) => {

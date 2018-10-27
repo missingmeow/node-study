@@ -13,6 +13,13 @@ function resourceNotFound(req, res, next) {
     })
 }
 
+function validationError(res, errors) {
+    res.status(422).json({
+        code: 'validationError',
+        error: errors.array()
+    })
+}
+
 function ensureAuthenticated(req, res, next) {
 //    if (req.signedCookies.name) {
 //        return next();
@@ -36,4 +43,5 @@ module.exports = {
     resourceNotFound,
     ensureAuthenticated,
     accountUnauthoried,
+    validationError,
 }
