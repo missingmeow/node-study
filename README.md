@@ -66,3 +66,5 @@ bin：           存放可执行文件
     [`session-file-store`](https://github.com/valery-barysok/session-file-store)一个文件存储session信息，可用来测试。
 
 6. [express-validator模块](https://express-validator.github.io/docs/)
+
+7. [在线查看API接口说明Swagger](https://github.com/scottie1984/swagger-ui-express) 首页`swagger.json`是API接口文档的配置，感觉写起来也不是一件容易的事啊。但查看确实是很方便！

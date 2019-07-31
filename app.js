@@ -11,6 +11,9 @@ const FileStore = require('session-file-store')(session);
 const router = require('./routes/index');
 const httpStatus = require('./utils/httpStatus');
 
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
+
 // 生成一个 express 实例
 const app = express();
 
@@ -72,6 +75,9 @@ app.use(express.static(path.join(__dirname, 'public'))); // 设置public文件�
 
 // add router
 router(app);
+
+// add swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // 404
 app.use(httpStatus.resourceNotFound);
