@@ -1,0 +1,41 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "API Docs",
+      "description": "API在线文档查看",
+      "version": "1.0"
+    },
+    "produces": ["application/json"],
+    "paths": {
+       "/login": {
+            "post": {
+                "tags": ["/login"],
+                "operationId": "index",
+                "description": "**这里是描述信息y**[Login 网址](http://127.0.0.1:3000/login)",
+                "parameters": [
+                    { "name": "username", "in": "formData", "type": "string", "required": true },
+                    { "name": "password", "in": "formData", "type": "string", "required": true }
+                ],
+                "responses": {
+                }
+            }
+       },
+       "/api/testapi": {
+           "get": {
+            "x-swagger-router-controller": "home",
+               "tags": ["/api/test"],
+               "responses": {
+               }
+           },
+           "post": {
+            "x-swagger-router-controller": "bar",
+            "tags": ["/api/test"],
+            "parameters": [
+                { "name": "username", "in": "formData", "type": "string", "required": true }
+            ],
+            "responses": {
+            }
+           }
+       }
+    }
+ }
