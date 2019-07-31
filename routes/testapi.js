@@ -67,7 +67,6 @@ router.post('/testapi', httpStatus.ensureAuthenticated, [
     let data = ReadData();
     for (let i = 0; i < data.length; ++i) {
         if (data[i].username === req.body.username) {
-            return;
             return res.status(409).send({ message: 'username has been created' });
         }
     }
