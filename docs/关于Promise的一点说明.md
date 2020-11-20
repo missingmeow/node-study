@@ -1,5 +1,7 @@
 # 关于 Promise 的一点说明
 
+## Promise 链
+
 这里主要是介绍一下链式调用的问题。
 
 假设有多个网络操作，必须是按顺序执行，那么中间如何处理可以保证一直可以链式执行呢？
@@ -123,3 +125,35 @@ undefined
 ```
 
 看出区别了吗？
+
+## 中断 Promise 链
+
+通过上面测试我们知道，不过链条中间返回成功或者失败，该链条上的 `then()` 方法会一直执行，直到执行完毕或者中间某个链条抛出了异常，那么，有没有可能中间某个链节点因为某种情况而需要终止该链条继续执行呢？
+
+方法当然是有的，而且只有一个，就是返回的 `Promise` 只要保证它的状态一直都是 `pending` 即可。
+
+代码如下：
+
+```js
+function test() {
+  aaa('1').then(vala => {
+    console.log(vala);
+    return bbb(vala);
+  }).then(valb => {
+    console.log(valb);
+    if (valb === 'aaabbb') {
+      return new Promise(() => {}); // 这样就保证该 Promise 的状态为 Pending，后面的 then 不会再被执行
+    }
+    return new Promise((resolve, reject) => {
+      ccc(valb, (err, value) => {
+        if (err) reject(err);
+        else resolve(value);
+      })
+    });
+  }).then(valc => {
+    console.log(valc)
+  }).catch(err => {
+    console.error(err);
+  })
+}
+```
